@@ -1,0 +1,23 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "An app that displays the weather the location selected by the user",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanDerlich/weather-app.git"
+  },
+  "author": "Ivan Derlich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IvanDerlich/weather-app/issues"
+  },
+  "homepage": "https://github.com/IvanDerlich/weather-app#readme",
+  "dependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
