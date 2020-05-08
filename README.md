@@ -2,6 +2,10 @@
 
 Use public APIs to render the weather of diferent locations
 
+## Live version
+
+[Here](https://ivanderlich.github.io/weather-app/)
+
 ## Acknowledgements
 
 - [Open Weather](https://openweathermap.org/): For their [API](https://openweathermap.org/current)
