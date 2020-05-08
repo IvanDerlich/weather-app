@@ -2,7 +2,7 @@
 const url = "http://api.openweathermap.org/data/2.5/weather?q=London";
 
 
-console.log("Helloworld! Deployed");
+console.log("Helloworld! Deployed deplyed");
 
 
 fetch(url).

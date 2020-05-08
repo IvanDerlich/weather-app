@@ -4,6 +4,7 @@
   "description": "An app that displays the weather the location selected by the user",
   "main": "index.js",
   "scripts": {
+    "deploy": "webpack --mode production && git push -d origin gh-pages && git subtree push --prefix dist origin gh-pages && sleep 20 && xdg-open https://ivanderlich.github.io/weather-app/",
     "build": "webpack --mode production && xdg-open ./dist/index.html",
     "build-no-open": "webpack --mode production",    
     "dev": "webpack --mode development && xdg-open ./dist/index.html",
@@ -13,8 +14,7 @@
     "b": "webpack --mode production && xdg-open ./dist/index.html",
     "bn": "webpack --mode production",
     "s": "webpack-dev-server --mode development --open",
-    "w": "webpack --mode production --watch",
-    "deploy": "webpack --mode production && git push -d gh-pages && git subtree push --prefix dist origin gh-pages && xdg-open https://ivanderlich.github.io/weather-app/"
+    "w": "webpack --mode production --watch"    
   },
   "repository": {
     "type": "git",
