@@ -1,4 +1,4 @@
-module.exports = {
+{
     "env": {
         "browser": true,
         "es6": true
@@ -247,4 +247,4 @@ module.exports = {
         "yield-star-spacing": "error",
         "yoda": "error"
     }
-};
+}
