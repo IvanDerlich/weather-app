@@ -6,7 +6,7 @@
   "scripts": {
     "deploy": "webpack --mode production && git add -A && git commit -m 'deploy' && git subtree push --prefix dist origin gh-pages && xdg-open https://ivanderlich.github.io/weather-app/",
     "build": "webpack --mode production && xdg-open ./dist/index.html",
-    "build-no-open": "webpack --mode production",    
+    "build-no-open": "webpack --mode production",
     "dev": "webpack --mode development && xdg-open ./dist/index.html",
     "dev-no-open": "webpack --mode development",
     "start": "webpack-dev-server --mode development --open",
@@ -14,7 +14,7 @@
     "b": "webpack --mode production && xdg-open ./dist/index.html",
     "bn": "webpack --mode production",
     "s": "webpack-dev-server --mode development --open",
-    "w": "webpack --mode production --watch"    
+    "w": "webpack --mode production --watch"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,10 @@
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.5.3",
-    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
     "file-loader": "^6.0.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
@@ -42,5 +45,10 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
   }
 }
