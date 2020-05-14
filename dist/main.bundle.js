@@ -97,7 +97,7 @@
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "body {\n  background-color: #ddcfcf;\n  text-align: center; }\n\n.results {\n  background-color: #c6c7ee;\n  width: 50%;\n  margin: 20px auto;\n  border-width: 1px;\n  border-style: solid;\n  border-color: white;\n  border-radius: 20px;\n  padding: 10px;\n  margin-top: 30px; }\n\n.results > * {\n  margin-top: 15px; }\n\n.units {\n  cursor: all-scroll;\n  width: 5vw;\n  background-color: #9090af; }\n\n.fahrenheit {\n  background-color: #8dadad; }\n\n.hide {\n  display: none; }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #ddcfcf;\n  text-align: center; }\n\n.panel {\n  background-color: #c6c7ee;\n  width: 50%;\n  margin: 20px auto;\n  border-width: 1px;\n  border-style: solid;\n  border-color: white;\n  border-radius: 20px;\n  padding: 10px;\n  margin-top: 30px; }\n\n.results > * {\n  margin-top: 15px; }\n\n.units {\n  cursor: all-scroll;\n  width: 5vw;\n  background-color: #9090af; }\n\n.fahrenheit {\n  background-color: #8dadad; }\n\n.hide {\n  display: none; }\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -489,10 +489,10 @@ module.exports = function (list, options) {
 
 /***/ }),
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "./src/dom.js":
+/*!********************!*\
+  !*** ./src/dom.js ***!
+  \********************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -501,30 +501,68 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _logic__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logic */ "./src/logic.js");
-/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./selectors */ "./src/selectors.js");
-/* eslint-disable no-unused-vars */
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./src/state.js");
 
 
 
-_selectors__WEBPACK_IMPORTED_MODULE_2__["units"].addEventListener('click', () => {
-  if (_selectors__WEBPACK_IMPORTED_MODULE_2__["units"].classList.contains('fahrenheit')) {
-    _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].classList.remove('fahrenheit');
-    _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].innerHTML = 'ºC';
+const cityInput = document.querySelector('#city');
+const errorDiv = document.querySelector('#error');
+const feelsDiv = document.querySelector('#feels');
+const humidityDiv = document.querySelector('#humidity');
+const tempDiv = document.querySelector('#temp');
+const windsDiv = document.querySelector('#winds');
+const units = document.querySelector('#units');
+const message = document.querySelector('#message');
+const data = document.querySelector('.data');
+
+function updatePanel() {
+  if (!_state__WEBPACK_IMPORTED_MODULE_2__["default"].error === '') {
+    errorDiv.classList.remove('hide');
+    message.innerHTML = `City: ${cityInput.value}`;
+    windsDiv.innerHTML = `Winds: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].windSpeed} m/s from ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].windDir}º`;
+    feelsDiv.innerHTML = `Feels: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].feels} ºC`;
+    tempDiv.innerHTML = `Temperature: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].temp} ºC`;
+    humidityDiv.innerHTML = `Humidity: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].humidity} %`;
   } else {
-    _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].classList.add('fahrenheit');
-    _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].innerHTML = 'ºF';
+    errorDiv.innerHTML = `Error: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].err}`;
+  }
+}
+
+units.addEventListener('click', () => {
+  if (units.classList.contains('fahrenheit')) {
+    units.classList.remove('fahrenheit');
+    units.innerHTML = 'ºC';
+    _state__WEBPACK_IMPORTED_MODULE_2__["default"].switchMetric();
+    updatePanel(_state__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  } else {
+    units.classList.add('fahrenheit');
+    units.innerHTML = 'ºF';
+    _state__WEBPACK_IMPORTED_MODULE_2__["default"].switchImperial();
+    updatePanel(_state__WEBPACK_IMPORTED_MODULE_2__["default"]);
   }
 });
 
 window.onload = () => {
-  _selectors__WEBPACK_IMPORTED_MODULE_2__["cityInput"].click();
+  data.classList.add('hide');
+  message.innerHTML = 'Type the city';
 };
 
-_selectors__WEBPACK_IMPORTED_MODULE_2__["cityInput"].addEventListener('keyup', () => {
-  const city = _selectors__WEBPACK_IMPORTED_MODULE_2__["cityInput"].value;
-  _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].classList.remove('hide');
-  Object(_logic__WEBPACK_IMPORTED_MODULE_1__["default"])(city);
+cityInput.addEventListener('keyup', () => {
+  const city = cityInput.value;
+  units.classList.remove('hide');
+  Object(_logic__WEBPACK_IMPORTED_MODULE_1__["default"])(city, updatePanel, _state__WEBPACK_IMPORTED_MODULE_2__["default"], hideError);
 });
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./dom */ "./src/dom.js");
 
 /***/ }),
 
@@ -538,71 +576,87 @@ _selectors__WEBPACK_IMPORTED_MODULE_2__["cityInput"].addEventListener('keyup', (
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return get; });
-/* harmony import */ var _selectors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selectors */ "./src/selectors.js");
-
-
-function errorHandling(err) {
-  _selectors__WEBPACK_IMPORTED_MODULE_0__["errorDiv"].innerHTML = `Error: ${err}`; // eslint-disable-next-line no-multi-assign
-
-  _selectors__WEBPACK_IMPORTED_MODULE_0__["tempDiv"].innerHTML = _selectors__WEBPACK_IMPORTED_MODULE_0__["windsDiv"].innerHTML = _selectors__WEBPACK_IMPORTED_MODULE_0__["humidityDiv"].innerHTML = _selectors__WEBPACK_IMPORTED_MODULE_0__["feelsDiv"].innerHTML = '';
+function errorHandling(state, err) {
+  state.error = err;
+  state.clean();
 }
 
-function get(city) {
-  // eslint-disable-next-line no-multi-assign
-  _selectors__WEBPACK_IMPORTED_MODULE_0__["windsDiv"].innerHTML = _selectors__WEBPACK_IMPORTED_MODULE_0__["humidityDiv"].innerHTML = _selectors__WEBPACK_IMPORTED_MODULE_0__["feelsDiv"].innerHTML = '';
-  _selectors__WEBPACK_IMPORTED_MODULE_0__["cityLabel"].innerHTML = `City: ${_selectors__WEBPACK_IMPORTED_MODULE_0__["cityInput"].value}`;
-  _selectors__WEBPACK_IMPORTED_MODULE_0__["tempDiv"].innerHTML = 'Fetching data...';
-  const queryUrl = `${_selectors__WEBPACK_IMPORTED_MODULE_0__["url"]}&q=${city}`;
+function get(city, updatePanel, state, hideError) {
+  state.message = 'Fetching data...';
+  state.error = '';
+  updatePanel();
+  const queryUrl = `${state.url}&q=${city}`;
   fetch(queryUrl).then(response => response.json()).then(response => {
     try {
       if (response.cod !== 200) throw response.message;
-      if (response.main.temp) _selectors__WEBPACK_IMPORTED_MODULE_0__["tempDiv"].innerHTML = `Temperature: ${response.main.temp} ºC`;
 
-      if (response.wind.speed && response.wind.deg) {
-        _selectors__WEBPACK_IMPORTED_MODULE_0__["windsDiv"].innerHTML = `Winds: ${response.wind.speed} m/s from ${response.wind.deg}º`;
+      if (response.main.temp) {
+        state.temp = response.main.temp;
       }
 
-      if (response.main.humidity) _selectors__WEBPACK_IMPORTED_MODULE_0__["humidityDiv"].innerHTML = `Humidity: ${response.main.humidity} %`;
-      if (response.main.feels_like) _selectors__WEBPACK_IMPORTED_MODULE_0__["feelsDiv"].innerHTML = `Feels: ${response.main.feels_like} ºC`;
-      _selectors__WEBPACK_IMPORTED_MODULE_0__["errorDiv"].innerHTML = '';
+      if (response.wind.speed && response.wind.deg) {
+        state.windSpeed = response.windSpeed;
+        state.windDi = response.wind.deg;
+      }
+
+      if (response.main.humidity) {
+        state.humidity = response.main.humidity;
+      }
+
+      if (response.main.feels_like) {
+        state.feels = response.main.feels_like;
+      }
+
+      state.error = '';
+      state.message = `City of${response.main}`;
+      updatePanel();
     } catch (err) {
-      errorHandling(err);
+      errorHandling(state, err);
     }
   }).catch(err => {
-    errorHandling(err);
+    errorHandling(state, err);
   });
 }
 
 /***/ }),
 
-/***/ "./src/selectors.js":
-/*!**************************!*\
-  !*** ./src/selectors.js ***!
-  \**************************/
-/*! exports provided: cityInput, cityLabel, errorDiv, feelsDiv, humidityDiv, tempDiv, url, windsDiv, units */
+/***/ "./src/state.js":
+/*!**********************!*\
+  !*** ./src/state.js ***!
+  \**********************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cityInput", function() { return cityInput; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cityLabel", function() { return cityLabel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorDiv", function() { return errorDiv; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "feelsDiv", function() { return feelsDiv; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "humidityDiv", function() { return humidityDiv; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tempDiv", function() { return tempDiv; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "url", function() { return url; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "windsDiv", function() { return windsDiv; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "units", function() { return units; });
-/* eslint-disable no-unused-vars */
-const cityInput = document.querySelector('#city');
-const cityLabel = document.querySelector('#city-label');
-const errorDiv = document.querySelector('#error');
-const feelsDiv = document.querySelector('#feels');
-const humidityDiv = document.querySelector('#humidity');
-const tempDiv = document.querySelector('#temp');
-const url = 'http://api.openweathermap.org/data/2.5/weather?appid=b93ac565c07c898f8ab078f813afa920&units=metric';
-const windsDiv = document.querySelector('#winds');
-const units = document.querySelector('#units');
+const state = {
+  temp: '',
+  feels: '',
+  humidity: '',
+  windSpeed: '',
+  windDir: '',
+  error: '',
+  message: '',
+  url: 'http://api.openweathermap.org/data/2.5/weather?appid=b93ac565c07c898f8ab078f813afa920&units=metric',
+  switchImperial: () => {
+    state.temp *= 9;
+    state.temp /= 5;
+    state.temp += 32;
+  },
+  switchMetric: () => {
+    state.temp -= 32;
+    state.temp *= 5;
+    state.temp /= 9;
+  },
+  clean: () => {
+    state.temp = '';
+    state.feels = '';
+    state.humidity = '';
+    state.windSpeed = '';
+    state.windDir = '';
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (state);
 
 /***/ }),
 
