@@ -97,7 +97,7 @@
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "body {\n  background-color: #ddcfcf;\n  text-align: center; }\n\n.results {\n  background-color: #c6c7ee;\n  width: 50%;\n  margin: 20px auto;\n  border-width: 1px;\n  border-style: solid;\n  border-color: white;\n  border-radius: 20px;\n  padding: 10px;\n  margin-top: 30px; }\n\n.results > * {\n  margin-top: 15px; }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #ddcfcf;\n  text-align: center; }\n\n.results {\n  background-color: #c6c7ee;\n  width: 50%;\n  margin: 20px auto;\n  border-width: 1px;\n  border-style: solid;\n  border-color: white;\n  border-radius: 20px;\n  padding: 10px;\n  margin-top: 30px; }\n\n.results > * {\n  margin-top: 15px; }\n\n.units {\n  cursor: all-scroll;\n  width: 5vw;\n  background-color: #9090af; }\n\n.fahrenheit {\n  background-color: #8dadad; }\n\n.hide {\n  display: none; }\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -506,6 +506,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+_selectors__WEBPACK_IMPORTED_MODULE_2__["units"].addEventListener('click', () => {
+  if (_selectors__WEBPACK_IMPORTED_MODULE_2__["units"].classList.contains('fahrenheit')) {
+    _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].classList.remove('fahrenheit');
+    _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].innerHTML = 'ºC';
+  } else {
+    _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].classList.add('fahrenheit');
+    _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].innerHTML = 'ºF';
+  }
+});
 
 window.onload = () => {
   _selectors__WEBPACK_IMPORTED_MODULE_2__["cityInput"].click();
@@ -513,6 +522,7 @@ window.onload = () => {
 
 _selectors__WEBPACK_IMPORTED_MODULE_2__["cityInput"].addEventListener('keyup', () => {
   const city = _selectors__WEBPACK_IMPORTED_MODULE_2__["cityInput"].value;
+  _selectors__WEBPACK_IMPORTED_MODULE_2__["units"].classList.remove('hide');
   Object(_logic__WEBPACK_IMPORTED_MODULE_1__["default"])(city);
 });
 
@@ -569,7 +579,7 @@ function get(city) {
 /*!**************************!*\
   !*** ./src/selectors.js ***!
   \**************************/
-/*! exports provided: cityInput, cityLabel, errorDiv, feelsDiv, humidityDiv, tempDiv, url, windsDiv */
+/*! exports provided: cityInput, cityLabel, errorDiv, feelsDiv, humidityDiv, tempDiv, url, windsDiv, units */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -582,6 +592,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tempDiv", function() { return tempDiv; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "url", function() { return url; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "windsDiv", function() { return windsDiv; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "units", function() { return units; });
 /* eslint-disable no-unused-vars */
 const cityInput = document.querySelector('#city');
 const cityLabel = document.querySelector('#city-label');
@@ -591,6 +602,7 @@ const humidityDiv = document.querySelector('#humidity');
 const tempDiv = document.querySelector('#temp');
 const url = 'http://api.openweathermap.org/data/2.5/weather?appid=b93ac565c07c898f8ab078f813afa920&units=metric';
 const windsDiv = document.querySelector('#winds');
+const units = document.querySelector('#units');
 
 /***/ }),
 

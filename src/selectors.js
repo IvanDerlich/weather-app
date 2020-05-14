@@ -7,3 +7,4 @@ export const humidityDiv = document.querySelector('#humidity');
 export const tempDiv = document.querySelector('#temp');
 export const url = 'http://api.openweathermap.org/data/2.5/weather?appid=b93ac565c07c898f8ab078f813afa920&units=metric';
 export const windsDiv = document.querySelector('#winds');
+export const units = document.querySelector('#units');

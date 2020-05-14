@@ -20,3 +20,17 @@ body{
 .results > * {
   margin-top: 15px;
 }
+
+.units {
+  cursor: all-scroll;
+  width: 5vw;
+  background-color: rgb(144, 144, 175);
+}
+
+.fahrenheit{
+  background-color: rgb(141, 173, 173);
+}
+
+.hide {
+  display: none;
+}

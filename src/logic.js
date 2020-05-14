@@ -2,6 +2,8 @@ import {
   errorDiv, tempDiv, windsDiv, humidityDiv, feelsDiv, cityLabel, cityInput, url,
 } from './selectors';
 
+export var temp = '';
+
 function errorHandling(err) {
   errorDiv.innerHTML = `Error: ${err}`;
   // eslint-disable-next-line no-multi-assign
@@ -20,7 +22,10 @@ export default function get(city) {
     .then((response) => {
       try {
         if (response.cod !== 200) throw response.message;
-        if (response.main.temp) tempDiv.innerHTML = `Temperature: ${response.main.temp} ºC`;
+        if (response.main.temp) {
+          tempDiv.innerHTML = `Temperature: ${response.main.temp} ºC`;
+          temp = response.main.temp;
+        }
 
         if (response.wind.speed && response.wind.deg) {
           windsDiv.innerHTML = `Winds: ${response.wind.speed
