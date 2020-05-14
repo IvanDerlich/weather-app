@@ -517,9 +517,6 @@ const data = document.querySelector('#data');
 const comm = document.querySelector('#comm');
 
 function updatePanel() {
-  console.log("Update Panel");
-  console.log(_state__WEBPACK_IMPORTED_MODULE_2__["default"]);
-
   if (_state__WEBPACK_IMPORTED_MODULE_2__["default"].error === 200) {
     comm.classList.add('hide');
     data.classList.remove('hide');
@@ -544,7 +541,6 @@ function updatePanel() {
       humidityDiv.innerHTML = `Humidity: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].humidity} %`;
     }
   } else {
-    console.log(_state__WEBPACK_IMPORTED_MODULE_2__["default"].error);
     comm.classList.remove('hide');
     message.innerHTML = 'There was an error';
     errorDiv.innerHTML = `Error: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].error}`;
@@ -643,12 +639,16 @@ function get(state, updatePanel) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 function celsiusToFarenheit(celsius) {
-  const farenheit = celsius * 9 / 5 + 32;
+  let farenheit = celsius * 9;
+  farenheit /= 5;
+  farenheit += 32;
   return Math.round(farenheit * 100) / 100;
 }
 
 function farenheitToCelsius(farenheit) {
-  const celsius = (farenheit - 32) * 5 / 9;
+  let celsius = farenheit - 32;
+  celsius *= 5;
+  celsius /= 9;
   return Math.round(celsius * 100) / 100;
 }
 

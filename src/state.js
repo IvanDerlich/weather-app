@@ -1,12 +1,16 @@
 
-function celsiusToFarenheit(celsius){
-  const farenheit = celsius * 9 / 5 + 32;
-  return Math.round(farenheit * 100) / 100
+function celsiusToFarenheit(celsius) {
+  let farenheit = celsius * 9;
+  farenheit /= 5;
+  farenheit += 32;
+  return Math.round(farenheit * 100) / 100;
 }
 
-function farenheitToCelsius(farenheit){
-  const celsius = (farenheit - 32) * 5 / 9;
-  return Math.round(celsius * 100) / 100
+function farenheitToCelsius(farenheit) {
+  let celsius = farenheit - 32;
+  celsius *= 5;
+  celsius /= 9;
+  return Math.round(celsius * 100) / 100;
 }
 
 const state = {

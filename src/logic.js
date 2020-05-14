@@ -16,11 +16,11 @@ export default function get(state, updatePanel) {
       try {
         if (response.cod !== 200) throw response.message;
         state.error = 200;
-        state.temp = Math.round(response.main.temp * 100) / 100; 
+        state.temp = Math.round(response.main.temp * 100) / 100;
         state.feels = Math.round(response.main.feels_like * 100) / 100;
         state.windSpeed = response.wind.speed;
         state.windDir = response.wind.deg;
-        state.humidity = response.main.humidity;        
+        state.humidity = response.main.humidity;
       } catch (err) {
         errorHandling(state, err);
       }
