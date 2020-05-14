@@ -3,41 +3,28 @@ function errorHandling(state, err) {
   state.clean();
 }
 
-export default function get(city, updatePanel, state, hideError) {
+export default function get(state, updatePanel) {
   state.message = 'Fetching data...';
   state.error = '';
   updatePanel();
-  const queryUrl = `${state.url}&q=${city}`;
+  const queryUrl = `${state.url}&q=${state.city}`;
 
   fetch(queryUrl)
     .then((response) => response.json())
     .then((response) => {
+      state.response = response;
       try {
         if (response.cod !== 200) throw response.message;
-        if (response.main.temp) {
-          state.temp = response.main.temp;
-        }
-
-        if (response.wind.speed && response.wind.deg) {
-          state.windSpeed = response.windSpeed;
-          state.windDi = response.wind.deg;
-        }
-
-        if (response.main.humidity) {
-          state.humidity = response.main.humidity;
-        }
-
-        if (response.main.feels_like) {
-          state.feels = response.main.feels_like;
-        }
-
-        state.error = '';
-        state.message = `City of${response.main}`;
-
-        updatePanel();
+        state.error = 200;
+        state.temp = Math.round(response.main.temp * 100) / 100; 
+        state.feels = Math.round(response.main.feels_like * 100) / 100;
+        state.windSpeed = response.wind.speed;
+        state.windDir = response.wind.deg;
+        state.humidity = response.main.humidity;        
       } catch (err) {
         errorHandling(state, err);
       }
+      updatePanel();
     })
     .catch((err) => {
       errorHandling(state, err);

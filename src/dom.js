@@ -11,30 +11,53 @@ const tempDiv = document.querySelector('#temp');
 const windsDiv = document.querySelector('#winds');
 const units = document.querySelector('#units');
 const message = document.querySelector('#message');
-const data = document.querySelector('.data');
+const data = document.querySelector('#data');
+const comm = document.querySelector('#comm');
 
 function updatePanel() {
-  if (!state.error === '') {
+  console.log("Update Panel")
+  console.log(state);
+  if (state.error === 200) {
+    comm.classList.add('hide');
+    data.classList.remove('hide');
+    units.classList.remove('hide');
+    units.innerHTML = state.degreesType;
     errorDiv.classList.remove('hide');
     message.innerHTML = `City: ${cityInput.value}`;
-    windsDiv.innerHTML = `Winds: ${state.windSpeed} m/s from ${state.windDir}º`;
-    feelsDiv.innerHTML = `Feels: ${state.feels} ºC`;
-    tempDiv.innerHTML = `Temperature: ${state.temp} ºC`;
-    humidityDiv.innerHTML = `Humidity: ${state.humidity} %`;
-  } else {
-    errorDiv.innerHTML = `Error: ${state.err}`;
+
+    if (state.temp) {
+      tempDiv.innerHTML = `Temperature: ${state.temp} ${state.degreesType} `;
+    }
+
+    if (state.windSpeed && state.windDir) {
+      windsDiv.innerHTML = `Winds: ${state.windSpeed} m/s from ${state.windDir}º`;
+    }
+    if (state.feels) {
+      feelsDiv.innerHTML = `Feels: ${state.feels} ${state.degreesType}`;
+    }
+
+    if (state.humidity) {
+      humidityDiv.innerHTML = `Humidity: ${state.humidity} %`;
+    }
+
+  } else {   
+    console.log(state.error)
+    comm.classList.remove('hide')
+    message.innerHTML = 'There was an error';
+    errorDiv.innerHTML = `Error: ${state.error}`;
+    data.classList.add('hide');
   }
 }
 
 units.addEventListener('click', () => {
   if (units.classList.contains('fahrenheit')) {
     units.classList.remove('fahrenheit');
-    units.innerHTML = 'ºC';
+    state.degreesType = 'ºC';
     state.switchMetric();
     updatePanel(state);
   } else {
     units.classList.add('fahrenheit');
-    units.innerHTML = 'ºF';
+    state.degreesType = 'ºF';
     state.switchImperial();
     updatePanel(state);
   }
@@ -46,8 +69,8 @@ window.onload = () => {
 };
 
 cityInput.addEventListener('keyup', () => {
-  const city = cityInput.value;
+  state.city = cityInput.value;
   units.classList.remove('hide');
-  get(city, updatePanel, state, hideError);
+  get(state, updatePanel);
 });
 

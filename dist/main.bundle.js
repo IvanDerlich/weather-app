@@ -513,30 +513,54 @@ const tempDiv = document.querySelector('#temp');
 const windsDiv = document.querySelector('#winds');
 const units = document.querySelector('#units');
 const message = document.querySelector('#message');
-const data = document.querySelector('.data');
+const data = document.querySelector('#data');
+const comm = document.querySelector('#comm');
 
 function updatePanel() {
-  if (!_state__WEBPACK_IMPORTED_MODULE_2__["default"].error === '') {
+  console.log("Update Panel");
+  console.log(_state__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
+  if (_state__WEBPACK_IMPORTED_MODULE_2__["default"].error === 200) {
+    comm.classList.add('hide');
+    data.classList.remove('hide');
+    units.classList.remove('hide');
+    units.innerHTML = _state__WEBPACK_IMPORTED_MODULE_2__["default"].degreesType;
     errorDiv.classList.remove('hide');
     message.innerHTML = `City: ${cityInput.value}`;
-    windsDiv.innerHTML = `Winds: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].windSpeed} m/s from ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].windDir}º`;
-    feelsDiv.innerHTML = `Feels: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].feels} ºC`;
-    tempDiv.innerHTML = `Temperature: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].temp} ºC`;
-    humidityDiv.innerHTML = `Humidity: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].humidity} %`;
+
+    if (_state__WEBPACK_IMPORTED_MODULE_2__["default"].temp) {
+      tempDiv.innerHTML = `Temperature: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].temp} ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].degreesType} `;
+    }
+
+    if (_state__WEBPACK_IMPORTED_MODULE_2__["default"].windSpeed && _state__WEBPACK_IMPORTED_MODULE_2__["default"].windDir) {
+      windsDiv.innerHTML = `Winds: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].windSpeed} m/s from ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].windDir}º`;
+    }
+
+    if (_state__WEBPACK_IMPORTED_MODULE_2__["default"].feels) {
+      feelsDiv.innerHTML = `Feels: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].feels} ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].degreesType}`;
+    }
+
+    if (_state__WEBPACK_IMPORTED_MODULE_2__["default"].humidity) {
+      humidityDiv.innerHTML = `Humidity: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].humidity} %`;
+    }
   } else {
-    errorDiv.innerHTML = `Error: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].err}`;
+    console.log(_state__WEBPACK_IMPORTED_MODULE_2__["default"].error);
+    comm.classList.remove('hide');
+    message.innerHTML = 'There was an error';
+    errorDiv.innerHTML = `Error: ${_state__WEBPACK_IMPORTED_MODULE_2__["default"].error}`;
+    data.classList.add('hide');
   }
 }
 
 units.addEventListener('click', () => {
   if (units.classList.contains('fahrenheit')) {
     units.classList.remove('fahrenheit');
-    units.innerHTML = 'ºC';
+    _state__WEBPACK_IMPORTED_MODULE_2__["default"].degreesType = 'ºC';
     _state__WEBPACK_IMPORTED_MODULE_2__["default"].switchMetric();
     updatePanel(_state__WEBPACK_IMPORTED_MODULE_2__["default"]);
   } else {
     units.classList.add('fahrenheit');
-    units.innerHTML = 'ºF';
+    _state__WEBPACK_IMPORTED_MODULE_2__["default"].degreesType = 'ºF';
     _state__WEBPACK_IMPORTED_MODULE_2__["default"].switchImperial();
     updatePanel(_state__WEBPACK_IMPORTED_MODULE_2__["default"]);
   }
@@ -548,9 +572,9 @@ window.onload = () => {
 };
 
 cityInput.addEventListener('keyup', () => {
-  const city = cityInput.value;
+  _state__WEBPACK_IMPORTED_MODULE_2__["default"].city = cityInput.value;
   units.classList.remove('hide');
-  Object(_logic__WEBPACK_IMPORTED_MODULE_1__["default"])(city, updatePanel, _state__WEBPACK_IMPORTED_MODULE_2__["default"], hideError);
+  Object(_logic__WEBPACK_IMPORTED_MODULE_1__["default"])(_state__WEBPACK_IMPORTED_MODULE_2__["default"], updatePanel);
 });
 
 /***/ }),
@@ -581,38 +605,27 @@ function errorHandling(state, err) {
   state.clean();
 }
 
-function get(city, updatePanel, state, hideError) {
+function get(state, updatePanel) {
   state.message = 'Fetching data...';
   state.error = '';
   updatePanel();
-  const queryUrl = `${state.url}&q=${city}`;
+  const queryUrl = `${state.url}&q=${state.city}`;
   fetch(queryUrl).then(response => response.json()).then(response => {
+    state.response = response;
+
     try {
       if (response.cod !== 200) throw response.message;
-
-      if (response.main.temp) {
-        state.temp = response.main.temp;
-      }
-
-      if (response.wind.speed && response.wind.deg) {
-        state.windSpeed = response.windSpeed;
-        state.windDi = response.wind.deg;
-      }
-
-      if (response.main.humidity) {
-        state.humidity = response.main.humidity;
-      }
-
-      if (response.main.feels_like) {
-        state.feels = response.main.feels_like;
-      }
-
-      state.error = '';
-      state.message = `City of${response.main}`;
-      updatePanel();
+      state.error = 200;
+      state.temp = Math.round(response.main.temp * 100) / 100;
+      state.feels = Math.round(response.main.feels_like * 100) / 100;
+      state.windSpeed = response.wind.speed;
+      state.windDir = response.wind.deg;
+      state.humidity = response.main.humidity;
     } catch (err) {
       errorHandling(state, err);
     }
+
+    updatePanel();
   }).catch(err => {
     errorHandling(state, err);
   });
@@ -629,7 +642,18 @@ function get(city, updatePanel, state, hideError) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function celsiusToFarenheit(celsius) {
+  const farenheit = celsius * 9 / 5 + 32;
+  return Math.round(farenheit * 100) / 100;
+}
+
+function farenheitToCelsius(farenheit) {
+  const celsius = (farenheit - 32) * 5 / 9;
+  return Math.round(celsius * 100) / 100;
+}
+
 const state = {
+  city: '',
   temp: '',
   feels: '',
   humidity: '',
@@ -637,16 +661,16 @@ const state = {
   windDir: '',
   error: '',
   message: '',
+  response: '',
+  degreesType: 'ºC',
   url: 'http://api.openweathermap.org/data/2.5/weather?appid=b93ac565c07c898f8ab078f813afa920&units=metric',
   switchImperial: () => {
-    state.temp *= 9;
-    state.temp /= 5;
-    state.temp += 32;
+    state.feels = celsiusToFarenheit(state.feels);
+    state.temp = celsiusToFarenheit(state.temp);
   },
   switchMetric: () => {
-    state.temp -= 32;
-    state.temp *= 5;
-    state.temp /= 9;
+    state.feels = farenheitToCelsius(state.feels);
+    state.temp = farenheitToCelsius(state.temp);
   },
   clean: () => {
     state.temp = '';
