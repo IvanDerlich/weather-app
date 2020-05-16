@@ -1,0 +1,36 @@
+body{
+  background-color: rgb(221, 207, 207);
+  text-align:center;
+}
+.panel{  
+  background-color: rgb(198, 199, 238);
+  width: 50%;
+  margin: 20px auto;
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 20px;
+  
+  padding: 10px;
+
+  margin-top:30px;
+}
+
+.results > * {
+  margin-top: 15px;
+}
+
+.units {
+  cursor: all-scroll;
+  width: 5vw;
+  background-color: rgb(144, 144, 175);
+}
+
+.fahrenheit{
+  background-color: rgb(141, 173, 173);
+}
+
+.hide {
+  display: none;
+}
