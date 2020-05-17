@@ -2,9 +2,29 @@
 
 Use public APIs to render the weather of diferent locations
 
+
+## Demo
+
+![](/img/1.png)
+![](/img/2.png)
+![](/img/3.png)
+
 ## Live version
 
 [Here](https://ivanderlich.github.io/weather-app/)
+
+## Instalation
+
+      git clone git@github.com:IvanDerlich/weather-app.git
+
+      cd weather-app
+
+      npm run build
+
+      xdg-open dist/index.html
+
+      or open the file dist/index.html
+
 
 ## Acknowledgements
 
