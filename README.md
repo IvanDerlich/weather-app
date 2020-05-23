@@ -11,7 +11,7 @@ Use public APIs to render the weather of diferent locations
 
 ## Live version
 
-[Here](https://ivanderlich.github.io/weather-app/)
+[Here](ivanderlich-weather-app.surge.sh)
 
 ## Instalation
 
