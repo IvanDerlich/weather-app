@@ -5,6 +5,7 @@ Use public APIs to render the weather of diferent locations
 
 ## Demo
 
+![](/img/vid.gif)
 ![](/img/1.png)
 ![](/img/2.png)
 ![](/img/3.png)
