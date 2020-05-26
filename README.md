@@ -1,6 +1,6 @@
 # Weather App
 
-Use public APIs to render the weather of diferent locations
+Use public APIs to render the weather of different locations
 
 
 ## Demo
@@ -27,7 +27,7 @@ Use public APIs to render the weather of diferent locations
       or open the file dist/index.html
 
 
-## Acknowledgements
+## Acknowlegements
 
 - [Open Weather](https://openweathermap.org/): For their [API](https://openweathermap.org/current)
 - [Odin Project](https://www.theodinproject.com): For their [guide](https://www.theodinproject.com/courses/javascript/lessons/weather-app)
