@@ -14,7 +14,7 @@ Use public APIs to render the weather of different locations.
 
 [Here](ivanderlich-weather-app.surge.sh).
 
-## Instalation
+## Installation
 
 Download the repo:
 
