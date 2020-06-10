@@ -35,7 +35,7 @@ Build the project using a node script:
 If the previous command doesn't open the index.html file in you default browser, then open it manually. It's located in the 'dist' folder.
 
 
-## Acknowledgements
+## Acknowledgments
 
 - [Open Weather](https://openweathermap.org/): For their [API](https://openweathermap.org/current).
 - [Odin Project](https://www.theodinproject.com): For their [guide](https://www.theodinproject.com/courses/javascript/lessons/weather-app).
