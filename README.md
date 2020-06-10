@@ -32,7 +32,7 @@ Build the project using a node script:
 
       npm run build
       
-If the previous command doesn't open the index.html file in you default browser, then open it manually. It's located in the 'dist' folder.
+If the previous command doesn't open the index.html file in your default browser, then open it manually. It's located in the 'dist' folder.
 
 
 ## Acknowledgments
