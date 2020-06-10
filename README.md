@@ -12,7 +12,7 @@ Use public APIs to render the weather of different locations.
 
 ## Live version
 
-[Here](ivanderlich-weather-app.surge.sh)
+[Here](ivanderlich-weather-app.surge.sh).
 
 ## Instalation
 
@@ -43,4 +43,4 @@ If the previous command doesn't open the index.html file in you default browser,
 
 ## Author
 
-[Ivan Derlich](https://www.ivanderlich.com)
+[Ivan Derlich](https://www.ivanderlich.com).
