@@ -1,6 +1,6 @@
 # Weather App
 
-Use public APIs to render the weather of different locations
+Use public APIs to render the weather of different locations.
 
 
 ## Demo
@@ -16,15 +16,23 @@ Use public APIs to render the weather of different locations
 
 ## Instalation
 
+Download the repo:
+
       git clone git@github.com:IvanDerlich/weather-app.git
 
+Move to the folder you had just created:
+
       cd weather-app
+      
+Install node packages:
+
+      npm install
+      
+Build the project using a node script:
 
       npm run build
-
-      xdg-open dist/index.html
-
-      or open the file dist/index.html
+      
+Finally, open the index.html file located in the 'dist' folder.
 
 
 ## Acknowlegements
