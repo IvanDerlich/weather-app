@@ -24,7 +24,7 @@ Move to the folder you had just created:
 
       cd weather-app
       
-Install node packages:
+Install project dependencies:
 
       npm install
       
@@ -32,7 +32,7 @@ Build the project using a node script:
 
       npm run build
       
-Finally, open the index.html file located in the 'dist' folder.
+If the previous command doesn't open the index.html file in you default browser, then open it manually. It's located in the 'dist' folder.
 
 
 ## Acknowlegements
