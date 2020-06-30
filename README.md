@@ -12,7 +12,7 @@ Use public APIs to render the weather of different locations.
 
 ## Live version
 
-[Here](ivanderlich-weather-app.surge.sh).
+[Here](http://ivanderlich-weather-app.surge.sh).
 
 ## Installation
 
