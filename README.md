@@ -1,14 +1,14 @@
 # Weather App
 
-Use public APIs to render the weather of different locations.
-
+<p id="description-weather-app"> Use public APIs to render the weather of different locations. <p>
 
 ## Demo
 
-![](/img/vid.gif)
-![](/img/1.png)
-![](/img/2.png)
-![](/img/3.png)
+![](/docs/1.png)
+![](/docs/2.png)
+![](/docs/3.png)
+
+<img src="docs/1.gif" id="main-image-space-shooter-game" />
 
 ## Live version
 
