@@ -8,7 +8,7 @@
 ![](/docs/2.png)
 ![](/docs/3.png)
 
-<img src="docs/1.gif" id="main-image-space-shooter-game" />
+<img src="docs/1.gif" id="main-image-weather-app" />
 
 ## Live version
 
@@ -16,7 +16,7 @@
 
 ## Technologies
 
-<ul id="tech-list-space-shooter-game">
+<ul id="tech-list-weather-app">
       <li>Javascript</li>
       <li>Webpack</li>
       <li>Sass</li>
