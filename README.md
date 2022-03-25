@@ -14,6 +14,14 @@
 
 [Here](http://ivanderlich-weather-app.surge.sh).
 
+## Technologies
+
+<ul id="tech-list-space-shooter-game">
+      <li>Javascript</li>
+      <li>Webpack</li>
+      <li>Sass</li>
+</ul>
+
 ## Installation
 
 Download the repo:
